@@ -147,7 +147,7 @@
       <div class="container">
         <div class="form-card">
           <h2 class="section-title">Coméntanos tu situación y te daremos cita hoy mismo</h2>
-          <form action="mailto:mercedesmfisioterapia@gmail.com" method="post" enctype="text/plain" autocomplete="on">
+          <form id="contactForm" autocomplete="on">
             <div class="form-row">
               <label for="nombre">Nombre</label>
               <input id="nombre" name="nombre" type="text" required autocomplete="name">
@@ -175,6 +175,8 @@
             </div>
             <button type="submit" class="btn btn-success btn-lg w-100">Enviar</button>
             <div id="formStatus" role="status" aria-live="polite"></div>
+            <input type="hidden" name="_subject" value="Nueva consulta desde la web">
+            <input type="hidden" name="_next" value="#form-contacto">
           </form>
         </div>
       </div>

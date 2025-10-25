@@ -43,69 +43,43 @@ document.addEventListener('DOMContentLoaded', function(){
   // Auto-rotate cada 5 segundos
   setInterval(() => show(current + 1), 5000);
 
-  // Form handling directo
+  // Form handling directo a WhatsApp
   const form = document.getElementById('contactForm');
-  const status = document.getElementById('formStatus');
   if(form){
-    form.addEventListener('submit', async function(e){
+    form.addEventListener('submit', function(e){
       e.preventDefault();
       
-      const submitBtn = form.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando…';
-
       const formData = new FormData(form);
-      const datos = {
-        nombre: formData.get('nombre'),
-        email: formData.get('email'),
-        telefono: formData.get('telefono'),
-        horario: formData.get('horario'),
-        mensaje: formData.get('mensaje')
-      };
-
-      try {
-        const res = await fetch('http://localhost:3001/enviar-consulta', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(datos)
-        });
-
-        const data = await res.json();
-        
-        if (data.ok) {
-          // Ocultar formulario y mostrar mensaje de éxito
-          form.style.display = 'none';
-          const confirmDiv = document.createElement('div');
-          confirmDiv.className = 'alert alert-success mt-4';
-          
-          // Crear mensaje de WhatsApp
-          const whatsappMsg = encodeURIComponent(
-            `Hola, soy ${formData.nombre}.\n` +
-            `Horario preferido: ${formData.horario}\n` +
-            `Consulta: ${formData.mensaje}`
-          );
-          const whatsappUrl = `https://wa.me/34613978291?text=${whatsappMsg}`;
-          
-          confirmDiv.innerHTML = `
-            <h4>¡Gracias por contactar!</h4>
-            <p>En breve nos pondremos en contacto contigo.</p>
-            <p>También puedes contactarnos directamente por WhatsApp:</p>
-            <a href="${whatsappUrl}" target="_blank" class="btn btn-success">
-              Continuar en WhatsApp
-            </a>
-          `;
-          form.parentNode.appendChild(confirmDiv);
-        } else {
-          status.textContent = data.message || 'Hubo un error al enviar el formulario.';
-        }
-      }catch(err){
-        status.textContent = 'Error de conexión. Intenta nuevamente.';
-      } finally{
-        submitBtn.disabled = false; submitBtn.textContent = 'Enviar';
-      }
+      const nombre = formData.get('nombre');
+      const email = formData.get('email');
+      const telefono = formData.get('telefono');
+      const horario = formData.get('horario');
+      const mensaje = formData.get('mensaje');
+      
+      // Crear mensaje de WhatsApp
+      const whatsappMsg = encodeURIComponent(
+        `Hola, soy ${nombre}.\n` +
+        `Email: ${email}\n` +
+        `Teléfono: ${telefono}\n` +
+        `Horario preferido: ${horario}\n` +
+        `Consulta: ${mensaje}`
+      );
+      const whatsappUrl = `https://wa.me/34613978291?text=${whatsappMsg}`;
+      
+      // Abrir WhatsApp
+      window.open(whatsappUrl, '_blank');
+      
+      // Mostrar mensaje de confirmación
+      form.style.display = 'none';
+      const confirmDiv = document.createElement('div');
+      confirmDiv.className = 'alert alert-success mt-4';
+      confirmDiv.innerHTML = `
+        <h4>¡Gracias por contactar!</h4>
+        <p>Te hemos redirigido a WhatsApp para completar tu consulta.</p>
+        <p>Si no se abrió automáticamente, <a href="${whatsappUrl}" target="_blank">haz clic aquí</a>.</p>
+        <button onclick="location.reload()" class="btn btn-secondary mt-2">Enviar otra consulta</button>
+      `;
+      form.parentNode.appendChild(confirmDiv);
     });
   }
 
