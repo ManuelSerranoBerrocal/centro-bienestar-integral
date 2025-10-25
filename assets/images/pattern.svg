@@ -1,0 +1,7 @@
+<![CDATA[<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+  <rect width="20" height="20" fill="none"/>
+  <circle cx="3" cy="3" r="1.5" fill="currentColor"/>
+  <circle cx="17" cy="3" r="1.5" fill="currentColor"/>
+  <circle cx="3" cy="17" r="1.5" fill="currentColor"/>
+  <circle cx="17" cy="17" r="1.5" fill="currentColor"/>
+</svg>]]>

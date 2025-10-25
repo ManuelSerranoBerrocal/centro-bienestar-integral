@@ -1,0 +1,16 @@
+{
+  "name": "centro-bienestar-integral",
+  "version": "1.0.0",
+  "description": "Página web para centro de terapias",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "verify": "node verify.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7"
+  }
+}
