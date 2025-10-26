@@ -69,7 +69,8 @@
         <li>Fisioterapeuta: <a href="tel:+34604249083">+34 604 249 083</a></li>
         <li>Centro: <a href="tel:+34613978291">+34 613 978 291</a></li>
       </ul>
-      <p>También puedes escribirnos por <a href="https://wa.me/34613978291" target="_blank">WhatsApp al +34 613 978 291</a>.</p>
+      <p>También puedes escribirnos por WhatsApp:</p>
+    <a href="#" id="whatsappBtn" class="btn" style="background-color: #25D366; margin-right: 10px;">📱 Continuar en WhatsApp</a>
     </div>
     
     <p>Con cariño,<br><strong>Equipo de Centro Bienestar Integral</strong></p>
@@ -77,10 +78,26 @@
   </div>
 
   <script>
-    // Extrae el nombre del URL si está presente
+    // Extrae los datos del URL
     const urlParams = new URLSearchParams(window.location.search);
     const nombre = urlParams.get('nombre') || 'Visitante';
+    const email = urlParams.get('email') || '';
+    const telefono = urlParams.get('telefono') || '';
+    const horario = urlParams.get('horario') || '';
+    const mensaje = urlParams.get('mensaje') || '';
+    
     document.getElementById('nombre').textContent = nombre;
+    
+    // Configurar botón de WhatsApp
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    const whatsappMsg = encodeURIComponent(
+      `Hola, soy ${nombre}.\n` +
+      `Email: ${email}\n` +
+      `Teléfono: ${telefono}\n` +
+      `Horario preferido: ${horario}\n` +
+      `Consulta: ${mensaje}`
+    );
+    whatsappBtn.href = `https://wa.me/34613978291?text=${whatsappMsg}`;
   </script>
 </body>
 </html>

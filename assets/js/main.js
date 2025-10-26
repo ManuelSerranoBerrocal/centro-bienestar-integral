@@ -67,9 +67,15 @@ document.addEventListener('DOMContentLoaded', function(){
         });
 
         if (response.ok) {
-          // Redirigir a página de agradecimiento con el nombre
-          const nombre = formData.get('nombre');
-          window.location.href = `gracias.html?nombre=${encodeURIComponent(nombre)}`;
+          // Redirigir a página de agradecimiento con todos los datos
+          const params = new URLSearchParams({
+            nombre: formData.get('nombre'),
+            email: formData.get('email'),
+            telefono: formData.get('telefono'),
+            horario: formData.get('horario'),
+            mensaje: formData.get('mensaje')
+          });
+          window.location.href = `gracias.html?${params.toString()}`;
         } else {
           const data = await response.json();
           status.textContent = data.error || 'Hubo un error al enviar el formulario.';
