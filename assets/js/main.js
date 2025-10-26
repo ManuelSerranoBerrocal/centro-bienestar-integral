@@ -67,30 +67,9 @@ document.addEventListener('DOMContentLoaded', function(){
         });
 
         if (response.ok) {
-          // Crear mensaje de WhatsApp
-          const whatsappMsg = encodeURIComponent(
-            `Hola, soy ${formData.get('nombre')}.\n` +
-            `Email: ${formData.get('email')}\n` +
-            `Teléfono: ${formData.get('telefono')}\n` +
-            `Horario preferido: ${formData.get('horario')}\n` +
-            `Consulta: ${formData.get('mensaje')}`
-          );
-          const whatsappUrl = `https://wa.me/34613978291?text=${whatsappMsg}`;
-          
-          // Ocultar formulario y mostrar mensaje de éxito
-          form.style.display = 'none';
-          const confirmDiv = document.createElement('div');
-          confirmDiv.className = 'alert alert-success mt-4';
-          confirmDiv.innerHTML = `
-            <h4>¡Gracias por contactar!</h4>
-            <p>Hemos recibido tu consulta por email. En breve nos pondremos en contacto contigo.</p>
-            <p>También puedes contactarnos directamente por WhatsApp:</p>
-            <a href="${whatsappUrl}" target="_blank" class="btn btn-success">
-              Continuar en WhatsApp
-            </a>
-            <button onclick="location.reload()" class="btn btn-secondary mt-2">Enviar otra consulta</button>
-          `;
-          form.parentNode.appendChild(confirmDiv);
+          // Redirigir a página de agradecimiento con el nombre
+          const nombre = formData.get('nombre');
+          window.location.href = `gracias.html?nombre=${encodeURIComponent(nombre)}`;
         } else {
           const data = await response.json();
           status.textContent = data.error || 'Hubo un error al enviar el formulario.';
