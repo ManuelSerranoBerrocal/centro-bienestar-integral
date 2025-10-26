@@ -67,7 +67,20 @@ document.addEventListener('DOMContentLoaded', function(){
         });
 
         if (response.ok) {
-          // Redirigir a página de agradecimiento con todos los datos
+          // Crear mensaje de WhatsApp y enviarlo automáticamente
+          const whatsappMsg = encodeURIComponent(
+            `Hola Mercedes, soy ${formData.get('nombre')}.\n` +
+            `Email: ${formData.get('email')}\n` +
+            `Teléfono: ${formData.get('telefono')}\n` +
+            `Horario preferido: ${formData.get('horario')}\n` +
+            `Consulta: ${formData.get('mensaje')}`
+          );
+          const whatsappUrl = `https://wa.me/34604249083?text=${whatsappMsg}`;
+          
+          // Abrir WhatsApp automáticamente
+          window.open(whatsappUrl, '_blank');
+          
+          // Redirigir a página de agradecimiento
           const params = new URLSearchParams({
             nombre: formData.get('nombre'),
             email: formData.get('email'),
